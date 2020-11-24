@@ -12,7 +12,6 @@
     li {
       list-style: none;
     }
-
   </style>
 </head>
 
@@ -27,52 +26,55 @@
 
   </div>
   <div>
-    <input id="button" type="submit" value="実行" onclick="check()">
+    <input id="button" type="submit" value="実行">
   </div>
   <p>【出力】</p>
-
+  <ul id="box"></ul>
 
 </body>
 <script>
 
-  function check() {
+  const exe = document.getElementById("button");
+  exe.addEventListener("click", function () {
+    const box = document.getElementById("box");
+    box.innerHTML = "";
     const fizz = document.getElementById("fizzNum").value;
     const buzz = document.getElementById("buzzNum").value;
-    if (isNaN(fizz) || fizz === "" || isNaN(buzz) || buzz === "") {
+    function showMessage() {
       const errorMessage = document.createElement('p');
       errorMessage.textContent = '整数値を入力してください';
-      document.body.appendChild(errorMessage);
-    } else {
+      box.appendChild(errorMessage);
+    };
 
-        const ul = document.createElement('ul');
-
+    if (/^([1-9]\d*|0)$/.test(fizz)) {
+      //fizzがtrueで...
+      if (/^([1-9]\d*|0)$/.test(buzz)) {
+        // fizzもbuzzもtrueだったら
         for (let i = 1; i < 100; i++) {
           if ((i % fizz) == 0 && (i % buzz) == 0) {
             const li = document.createElement('li');
             li.textContent = 'Fizz' + 'Buzz' + i;
-            ul.appendChild(li);
-            console.log("Fizz" + "Buzz" + i)
-
+            box.appendChild(li);
           } else if ((i % fizz) == 0) {
             const li = document.createElement('li');
             li.textContent = 'Fizz' + i;
-            ul.appendChild(li);
-            console.log("Fizz" + i)
-
+            box.appendChild(li);
           } else if ((i % buzz) == 0) {
             const li = document.createElement('li');
             li.textContent = 'Buzz' + i;
-            ul.appendChild(li);
-            console.log("Buzz" + i)
-
+            box.appendChild(li);
           };
-
-          document.body.appendChild(ul);
-        };
-
-      };
-
-    };
+          document.body.appendChild(box);
+        }
+      } else {
+        // fizzはtrueだけどbuzzがfalseだったら...
+        showMessage();
+      }
+    } else {
+      // fizzがfalseだったら
+      showMessage();
+    }
+  });
 
 </script>
 
