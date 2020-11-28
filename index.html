@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript課題②</title>
+  <style>
+    li {
+      list-style: none;
+    }
+
+    dl dt {
+      width: 85px;
+      float: left;
+    }
+
+    .Num {
+      width: 170px;
+    }
+
+    dl {
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>FizzBuzz問題</h1>
+  <dl>
+    <dt>FizzNum:</dt>
+    <dd><input id="fizzNum" class="Num" type="text" placeholder="整数値を入力してください"></dd>
+
+    <dt>BuzzNum:</dt>
+    <dd><input id="buzzNum" class="Num" type="text" placeholder="整数値を入力してください"></dd>
+  </dl>
+
+  <div>
+    <input id="runButton" class="runButton" type="submit" value="実行">
+  </div>
+  <p>【出力】</p>
+  <ul id="resultBox"></ul>
+
+</body>
+<script>
+
+  const exe = document.getElementById("runButton");
+  exe.addEventListener("click", function () {
+    const resultBox = document.getElementById("resultBox");
+    resultBox.innerHTML = "";
+    const fizz = document.getElementById("fizzNum").value;
+    const buzz = document.getElementById("buzzNum").value;
+    function showMessage() {
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = '整数値を入力してください';
+      resultBox.appendChild(errorMessage);
+    };
+
+
+
+    if (!(/^([1-9]\d*|0)$/.test(fizz) && /^([1-9]\d*|0)$/.test(buzz))) {
+      // エラーチェック
+      showMessage();
+      return;
+    };
+
+    for (let i = 1; i < 100; i++) {
+      if ((i % fizz) == 0 && (i % buzz) == 0) {
+        const li = document.createElement('li');
+        li.textContent = 'Fizz' + 'Buzz' + i;
+        resultBox.appendChild(li);
+      } else if ((i % fizz) == 0) {
+        const li = document.createElement('li');
+        li.textContent = 'Fizz' + i;
+        resultBox.appendChild(li);
+      } else if ((i % buzz) == 0) {
+        const li = document.createElement('li');
+        li.textContent = 'Buzz' + i;
+        resultBox.appendChild(li);
+      };
+      document.body.appendChild(resultBox);
+    };
+
+  });
+
+</script>
+
+</html>
